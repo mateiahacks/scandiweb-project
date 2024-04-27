@@ -10,10 +10,12 @@ use GraphQL\Type\SchemaConfig;
 use RuntimeException;
 use Throwable;
 
-require __DIR__."/../Service/CategoryService.php";
+use App\Service\CategoryService;
 
 class GraphQL {
-    static public function handle($entity_manager) {
+    static public function handle() {
+        global $entity_manager;
+        $category_service = new CategoryService($entity_manager);
 
         try {
             $queryType = new ObjectType([

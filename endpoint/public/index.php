@@ -18,8 +18,7 @@ if (!isset($_SERVER['REQUEST_METHOD'])) {
 }
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
-    global $entity_manager;
-    $r->post('/graphql', [App\Controller\GraphQL::class, App\Controller\GraphQL::handle($entity_manager)]);
+    $r->post('/graphql', [App\Controller\GraphQL::class, 'handle']);
 });
 
 $routeInfo = $dispatcher->dispatch(

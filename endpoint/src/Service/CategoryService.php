@@ -1,4 +1,8 @@
 <?php
+namespace App\Service;
+
+use App\Entity\Category;
+
 use Doctrine\ORM\EntityManager;
 
 class CategoryService {
@@ -8,5 +12,7 @@ class CategoryService {
     }
 
     public function get_category_by_name($name) {
+        $category = $this->entity_manager->getRepository(Category::class)->findOneBy(["name"=> $name]);
+        return $category;
     }
 }
