@@ -45,15 +45,22 @@ abstract class AttributeSet extends EntityBase {
     public function get_product_id(): int { return $this->product_id; }
     public function get_product(): Product { return $this->product; }
     public function get_name (): string { return $this->name; }
-    public function get_items(): ArrayCollection { return $this->items; }
+    public function get_items() { return $this->items; }
+    abstract public function get_type();
 }
 
 #[Entity]
 class SwatchAttributeSet extends AttributeSet {
     // This entity will only read swatch type attribute sets
+
+    public function get_type() {
+        return "swatch";
+    }
 }
 #[Entity]
 class TextAttributeSet extends AttributeSet {
     // This entity will only read text type attribute sets
-    
+    public function get_type() {
+        return "text";
+    }
 }

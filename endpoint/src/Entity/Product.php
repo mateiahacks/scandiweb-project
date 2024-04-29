@@ -33,7 +33,7 @@ class Product extends EntityBase {
     #[Column(type: 'string')]
     private $description;
 
-    #[Column(type: 'integer')]
+    #[Column(type: 'float')]
     private $price_in_euro;
 
     #[Column(type: 'integer')]
@@ -48,10 +48,6 @@ class Product extends EntityBase {
 
     #[OneToMany(targetEntity: Image::class, mappedBy: 'product')]
     private $gallery;
-
-    /** 
-     * @var Price[]
-     */
     private $prices;
 
     public function __construct() {
@@ -67,11 +63,8 @@ class Product extends EntityBase {
     public function get_brand(): string { return $this->brand; }
     public function get_description(): string { return $this->description; }
     public function get_quatity(): int { return $this->quantity; }
-    public function get_price_in_euro(): int { return $this->price_in_euro; }
+    public function get_price_in_euro(): float { return $this->price_in_euro; }
     public function get_category(): Category { return $this->category; }
-    /**
-     * @return ArrayCollection|Price[]
-     */
     public function get_prices() { return $this->prices; }
     public function set_name($name) { $this->name = $name; }
     public function set_quantity(int $number) { 
@@ -82,11 +75,12 @@ class Product extends EntityBase {
     }
     public function set_prices($amount_in_eur) {
         $currencies = CurrencyConverter::get_avaible_currencies();
+        $this->prices = [];
         foreach ($currencies as $currency) {
-            $this->prices[] = new Price(CurrencyConverter::convert_from_euro($amount_in_eur, $currency->get_symbol()), $currency->get_symbol());
+            $this->prices[] = new Price(CurrencyConverter::convert_from_euro($amount_in_eur, $currency->get_label()), $currency);
         }   
     }
 
-    public function get_gallery(): ArrayCollection { return $this->gallery; }
-    public function get_attributes(): ArrayCollection { return $this->attributes; }
+    public function get_gallery() { return $this->gallery->toArray(); }
+    public function get_attributes() { return $this->attributes->toArray(); }
 }

@@ -28,5 +28,5 @@ class Category extends EntityBase {
 
     public function get_id (): int { return $this->id; }
     public function get_name (): string { return $this->name; }
-    public function get_products () { return $this->products; }
+    public function get_products () { return $this->products->toArray(); }
 }

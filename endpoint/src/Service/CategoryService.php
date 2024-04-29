@@ -6,18 +6,18 @@ use App\Entity\Category;
 use Doctrine\ORM\EntityManager;
 
 class CategoryService {
-    private $entity_manager;
+    private $category_repository;
     public function __construct(EntityManager $entity_manager) {
-        $this->entity_manager = $entity_manager;
+        $this->category_repository = $entity_manager->getRepository(Category::class);
     }
 
     public function get_category_by_name($name) {
-        $category = $this->entity_manager->getRepository(Category::class)->findOneBy(["name"=> $name]);
+        $category = $this->category_repository->findOneBy(["name"=> $name]);
         return $category;
     }
 
     public function get_all_categories() {
-        $categories = $this->entity_manager->getRepository(Category::class)->findAll();
+        $categories = $this->category_repository->findAll();
         return $categories;
     }
 }
