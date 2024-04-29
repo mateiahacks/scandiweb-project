@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping\Table;
 #[InheritanceType('SINGLE_TABLE')]
 #[DiscriminatorColumn(name: 'type', type: 'string', columnDefinition: "ENUM('text', 'swatch')")]
 #[DiscriminatorMap(['text' => TextAttributeSet::class, 'swatch' => SwatchAttributeSet::class])]
-abstract class AttributeSet {
+abstract class AttributeSet extends EntityBase {
 
     #[Id, Column(type:"integer"), GeneratedValue]
     private $id;

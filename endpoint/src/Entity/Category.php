@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping\Table;
 
 #[Entity]
 #[Table(name: "category")]
-class Category {
+class Category extends EntityBase {
     #[Id, Column(type: "integer"), GeneratedValue]
     private $id;
 
@@ -28,5 +28,5 @@ class Category {
 
     public function get_id (): int { return $this->id; }
     public function get_name (): string { return $this->name; }
-    public function get_products (): ArrayCollection { return $this->products; }
+    public function get_products () { return $this->products; }
 }

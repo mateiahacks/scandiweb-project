@@ -15,4 +15,9 @@ class CategoryService {
         $category = $this->entity_manager->getRepository(Category::class)->findOneBy(["name"=> $name]);
         return $category;
     }
+
+    public function get_all_categories() {
+        $categories = $this->entity_manager->getRepository(Category::class)->findAll();
+        return $categories;
+    }
 }

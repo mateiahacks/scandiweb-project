@@ -17,8 +17,7 @@ use Doctrine\ORM\Mapping\Table;
 
 #[Entity]
 #[Table(name: "product")]
-class Product {
-    
+class Product extends EntityBase {
     #[Id, Column(type: 'integer'), GeneratedValue]
     protected $id;
 

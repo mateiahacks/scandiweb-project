@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping\Table;
 
 #[Entity]
 #[Table(name:"image")]
-class Image {
+class Image extends EntityBase {
     #[Id, Column(type: "integer"), GeneratedValue]
     protected $id;
 

@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping\Table;
 
 #[Entity]
 #[Table(name:"attribute_item")]
-class AttributeItem {
+class AttributeItem extends EntityBase {
     #[Id, Column(type:"integer"), GeneratedValue]
     private $id;
 

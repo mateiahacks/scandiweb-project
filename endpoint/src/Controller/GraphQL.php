@@ -10,23 +10,22 @@ use GraphQL\Type\SchemaConfig;
 use RuntimeException;
 use Throwable;
 
-use App\Service\CategoryService;
+use App\Types\SchemaTypes;
+use App\Controller\CategoryController;
 
 class GraphQL {
     static public function handle() {
         global $entity_manager;
-        $category_service = new CategoryService($entity_manager);
+        $category_controller = new CategoryController($entity_manager);
 
         try {
             $queryType = new ObjectType([
                 'name' => 'Query',
                 'fields' => [
-                    'echo' => [
-                        'type' => Type::string(),
-                        'args' => [
-                            'message' => ['type' => Type::string()],
-                        ],
-                        'resolve' => static fn ($rootValue, array $args): string => $rootValue['prefix'] . $args['message'],
+                    'categories' => [
+                        'type' => SchemaTypes::categories(),
+                        'args' => [],
+                        'resolve' => static fn() => $category_controller->get_all_categories(),
                     ],
                 ],
             ]);
