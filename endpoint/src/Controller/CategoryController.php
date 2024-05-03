@@ -2,15 +2,12 @@
 namespace App\Controller;
 
 use App\Entity\Category;
-use App\Entity\Image;
 use App\Entity\Product;
-use App\Types\Price;
 
 use App\Service\CategoryService;
 use App\Service\ProductService;
 
 use App\Utils\Serializers;
-use Error;
 
 class CategoryController {
     private CategoryService $category_service;
