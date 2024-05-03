@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use GraphQL\GraphQL as GraphQLBase;
+use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Schema;
@@ -16,17 +17,25 @@ use App\Controller\CategoryController;
 class GraphQL {
     static public function handle() {
         global $entity_manager;
+        SchemaTypes::init();
         $category_controller = new CategoryController($entity_manager);
 
         try {
             $queryType = new ObjectType([
                 'name' => 'Query',
                 'fields' => [
+                    'category' => [
+                        'type'=> SchemaTypes::$category,
+                        'args' => [
+                            'title' => Type::string()
+                        ],
+                        'resolve' => fn($root, array $args) => $category_controller->get_category_by_name($args["title"]),
+                    ],
                     'categories' => [
-                        'type' => SchemaTypes::categories(),
+                        'type' => SchemaTypes::$categories,
                         'args' => [],
                         'resolve' => static fn() => $category_controller->get_all_categories(),
-                    ],
+                    ]
                 ],
             ]);
         
@@ -64,6 +73,7 @@ class GraphQL {
             $rootValue = ['prefix' => 'You said: '];
             $result = GraphQLBase::executeQuery($schema, $query, $rootValue, null, $variableValues);
             $output = $result->toArray();
+
         } catch (Throwable $e) {
             $output = [
                 'error' => [

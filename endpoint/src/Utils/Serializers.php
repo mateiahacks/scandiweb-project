@@ -3,11 +3,19 @@ namespace App\Utils;
 
 use App\Entity\AttributeItem;
 use App\Entity\AttributeSet;
+use App\Entity\Category;
 use App\Entity\Image;
 use App\Entity\Product;
 use App\Types\Price;
 
 class Serializers {
+    public static function category(Category $category) {
+        return [
+            "name"=> $category->get_name(),
+            "products"=> array_map(fn (Product $product) => self::product($product), $category->get_products()),
+        ];
+    }
+
     public static function product( Product $product ) {
         $product->set_prices($product->get_price_in_euro());
         return [

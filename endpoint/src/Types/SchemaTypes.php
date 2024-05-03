@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Types;
 
 use GraphQL\Type\Definition\Type;
@@ -7,28 +7,53 @@ use GraphQL\Type\Definition\ObjectType;
 
 class SchemaTypes {
     // Define Types
-    public static function currency() {
-        return new ObjectType([
+    public static $currency;
+    public static $price;
+    public static $product;
+    public static $attributeSet;
+    public static $attributeItem;
+    public static $products;
+    public static $category;
+    public static $categories;
+    public static $categoryInput;
+
+    public static function init() {
+        self::$currency = new ObjectType([
             'name' => 'Currency',
             'fields'=> [
                 'label'=> Type::string(),
                 'symbol' => Type::string()
             ]
         ]);
-    }
 
-    public static function price() {
-        return new ObjectType([
+        self::$price = new ObjectType([
             'name'=> 'Price',
             'fields'=> [
                 'amount' => Type::float(),
-                'currency' => self::currency(),
+                'currency' => self::$currency,
             ]
         ]);
-    }
 
-    public static function product() {
-        return new ObjectType([
+        self::$attributeItem = new ObjectType([
+            'name'=> 'AttributeItem',
+            'fields'=> [
+                'displayValue' => Type::string(),
+                'value' => Type::string(),
+                'id' => Type::int(),   
+            ]
+        ]);
+
+        self::$attributeSet = new ObjectType([
+            'name' => 'AttributeSet',
+            'fields'=> [
+                "id" => Type::int(),
+                "name"=> Type::string(),
+                "items" => new ListOfType(self::$attributeItem),
+                "type" => Type::string(),
+            ]
+        ]);
+
+        self::$product = new ObjectType([
             'name' => 'Product',
             'fields'=> [
                 'id' => Type::int(),
@@ -37,55 +62,24 @@ class SchemaTypes {
                 'description' => Type::string(),
                 'inStock' => Type::boolean(),
                 'gallery'=> new ListOfType(Type::string()),
-                'prices' => new ListOfType(self::price()),
-                'attributes' => new ListOfType(self::attribute_set()),
+                'prices' => new ListOfType(self::$price),
+                'attributes' => new ListOfType(self::$attributeSet),
             ]
         ]);
-    }
 
-    public static function attribute_set() {
-        return new ObjectType([
-            'name' => 'AttributeSet',
-            'fields'=> [
-                "id" => Type::int(),
-                "name"=> Type::string(),
-                "items" => new ListOfType(self::attribute_item()),
-                "type" => Type::string(),
-            ]
-        ]);
-    }
+        self::$products = new ListOfType(self::$product);
 
-    public static function attribute_item() {
-        return new ObjectType([
-            'name'=> 'AttributeItem',
-            'fields'=> [
-                'displayValue' => Type::string(),
-                'value' => Type::string(),
-                'id' => Type::int(),   
-            ]
-        ]);
-    }
-
-    public static function products() {
-        return new ListOfType(self::product());
-    }
-
-    public static function category() {
-        return new ObjectType([
+        self::$category = new ObjectType([
             'name' => 'Category',
             'fields' => [
                 'name' => Type::string(),
-                'products' => self::products(),
+                'products' => self::$products,
             ],
         ]);
-    }   
 
-    public static function categories() {
-        return new ListOfType(self::category());
-    }
+        self::$categories = new ListOfType(self::$category);
 
-    public static function category_input() {
-        return new ObjectType([
+        self::$categoryInput = new ObjectType([
             'name' => 'CategoryInput',
             'fields'=> [
                 'title' => Type::string(),
@@ -93,3 +87,5 @@ class SchemaTypes {
         ]);
     }
 }
+
+?>

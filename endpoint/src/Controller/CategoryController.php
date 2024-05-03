@@ -10,6 +10,7 @@ use App\Service\CategoryService;
 use App\Service\ProductService;
 
 use App\Utils\Serializers;
+use Error;
 
 class CategoryController {
     private CategoryService $category_service;
@@ -21,19 +22,20 @@ class CategoryController {
     }
 
     public function get_category_by_name($name) {
+        if ($name === "all") {
+            return [
+                "name" => "all",
+                "products" => array_map(fn (Product $product) => Serializers::product($product), $this->product_service->get_all_products()),
+            ];
+        }
         $category = $this->category_service->get_category_by_name($name);
-        return $category;
+        return Serializers::category($category);
     }
 
     public function get_all_categories() {
-        $result = array_map(function(Category $category) {
-            return [
-                "name"=> $category->get_name(),
-                "products"=> array_map(fn (Product $product) => Serializers::product($product), $category->get_products()),
-            ];
-        }, $this->category_service->get_all_categories());
+        $result = array_map(fn (Category $category) => Serializers::category($category), $this->category_service->get_all_categories());
 
-        // Add all category to result manually
+        // Add 'all' category to result manually
         array_push( $result, [
             "name" => "all",
             "products" => array_map(fn (Product $product) => Serializers::product($product), $this->product_service->get_all_products()),
