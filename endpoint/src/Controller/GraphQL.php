@@ -18,8 +18,13 @@ use App\Controller\CurrencyController;
 class GraphQL {
     static public function handle() {
         global $entity_manager;
+
+        // Initializing 
         SchemaTypes::init();
+
+        // Controllers for resolving
         $category_controller = new CategoryController($entity_manager);
+        $product_controller = new ProductController($entity_manager);
         $currency_controller = new CurrencyController();
 
         try {
@@ -42,6 +47,13 @@ class GraphQL {
                         'type' => new ListOfType(SchemaTypes::$currency),
                         'args' => [],
                         'resolve' => static fn() => $currency_controller->get_currencies(),
+                    ],
+                    'product' => [
+                        'type' => SchemaTypes::$product,
+                        'args' => [
+                            'id' => Type::int(),
+                        ],
+                        'resolve' => static fn($root, array $args) => $product_controller->get_product_by_id($args["id"])
                     ]
                 ],
             ]);
