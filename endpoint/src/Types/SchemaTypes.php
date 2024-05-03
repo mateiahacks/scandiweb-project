@@ -34,6 +34,8 @@ class SchemaTypes {
                 'id' => Type::int(),
                 'name'=> Type::string(),
                 'brand' => Type::string(),
+                'description' => Type::string(),
+                'inStock' => Type::boolean(),
                 'gallery'=> new ListOfType(Type::string()),
                 'prices' => new ListOfType(self::price()),
                 'attributes' => new ListOfType(self::attribute_set()),

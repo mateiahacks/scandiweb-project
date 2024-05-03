@@ -14,6 +14,8 @@ class Serializers {
             "id" => $product->get_id(),
             "name" => $product->get_name(),
             "brand" => $product->get_brand(),
+            "inStock" => $product->get_quatity() > 0,
+            "description" => $product->get_description(),
             "gallery" => array_map(fn (Image $img) => self::image($img), $product->get_gallery()),
             "prices" => array_map(fn (Price $price) => self::price($price), $product->get_prices()),
             "attributes" => array_map(fn (AttributeSet $attribute_set) => self::attribute_set( $attribute_set ), $product->get_attributes()),
