@@ -13,12 +13,14 @@ use Throwable;
 
 use App\Types\SchemaTypes;
 use App\Controller\CategoryController;
+use App\Controller\CurrencyController;
 
 class GraphQL {
     static public function handle() {
         global $entity_manager;
         SchemaTypes::init();
         $category_controller = new CategoryController($entity_manager);
+        $currency_controller = new CurrencyController();
 
         try {
             $queryType = new ObjectType([
@@ -35,6 +37,11 @@ class GraphQL {
                         'type' => SchemaTypes::$categories,
                         'args' => [],
                         'resolve' => static fn() => $category_controller->get_all_categories(),
+                    ],
+                    'currencies' => [
+                        'type' => new ListOfType(SchemaTypes::$currency),
+                        'args' => [],
+                        'resolve' => static fn() => $currency_controller->get_currencies(),
                     ]
                 ],
             ]);

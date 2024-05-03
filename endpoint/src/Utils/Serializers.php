@@ -7,6 +7,7 @@ use App\Entity\Category;
 use App\Entity\Image;
 use App\Entity\Product;
 use App\Types\Price;
+use App\Types\Currency;
 
 class Serializers {
     public static function category(Category $category) {
@@ -50,10 +51,14 @@ class Serializers {
     public static function price( Price $price ) {
         return [
             "amount" => Helpers::round_to_2_decimals($price->get_amount()),
-            "currency" => [
-                "label" => $price->get_currency()->get_label(),
-                "symbol" => $price->get_currency()->get_symbol(),
-            ]
+            "currency" => self::currency($price->get_currency())
+        ];
+    }
+
+    public static function currency( Currency $currency ) {
+        return [
+            "label" => $currency->get_label(),
+            "symbol" => $currency->get_symbol(),
         ];
     }
 
