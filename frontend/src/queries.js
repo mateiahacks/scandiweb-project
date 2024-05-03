@@ -49,7 +49,7 @@ export const currencies = () => {
 export const product = (id) => {
   return gql`
     {
-      product(id: "${id}") {
+      product(id: ${Number(id)}) {
         id
         name
         gallery
