@@ -8,7 +8,7 @@ export const client = new ApolloClient({
 export const productsByCategory = (category) => {
   return gql`
       {
-        category(input: { title: "${category}" }) {
+        category(title: "${category}" ) {
           name
           products {
             id
