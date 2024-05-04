@@ -1,24 +1,27 @@
-
 .home__inner {
-    padding: 0 8rem;
+  padding: 0 8rem;
 }
 
 .home__inner > h1 {
-    font-size: 3.5rem;
-    font-weight: 400;
+  font-size: 3rem;
+  font-weight: 400;
 }
 
 .products {
-    display: grid;
-    margin: 100px 0;
-    grid-template-columns: 500px 500px 500px;
-    column-gap: 70px;
-    row-gap: 120px;
+  /* display: grid;
+  margin: 100px 0;
+  grid-template-columns: 500px 500px 500px;
+  column-gap: 70px;
+  row-gap: 120px; */
+  margin: 100px 0;
+  display: flex;
+  gap: 100px;
+  flex-wrap: wrap;
 }
 
 @media only screen and (max-width: 1600px) {
-    .products {
-        grid-template-columns: 500px 500px;
-        /* margin: 100px auto; */
-    }
+  .products {
+    grid-template-columns: 500px 500px;
+    /* margin: 100px auto; */
+  }
 }
