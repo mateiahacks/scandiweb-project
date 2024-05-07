@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./components/Home";
+import Home from "./components/Home/Home";
 import { connect } from "react-redux";
 import { fetchCurrencies } from "./actions/currencyAction";
 import { fetchCategories } from "./actions/categoryAction";
-import Detailed from "./components/Detailed";
-import Cart from "./components/cart/Cart";
+import Detailed from "./components/DetailedProduct/Detailed";
+import Cart from "./components/Cart/Cart";
 
 class App extends Component {
   componentDidMount() {

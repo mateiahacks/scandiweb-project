@@ -1,4 +1,4 @@
-import { client, productsByCategory } from "../queries";
+import { client, productsByCategory } from "../utils/queries";
 
 export const fetchProducts = (name) => (dispatch) => {
   const query = productsByCategory(name);

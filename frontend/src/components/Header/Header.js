@@ -3,13 +3,13 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { BsCart2 } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { setCategory } from "../actions/categoryAction";
-import { setCurrency, fetchCurrencies } from "../actions/currencyAction";
-import { resetCart } from "../actions/cartAction";
-import CartWindowProduct from "./cart/CartWindowProduct";
-import logo from "../images/logo.png";
+import { setCategory } from "../../actions/categoryAction";
+import { setCurrency, fetchCurrencies } from "../../actions/currencyAction";
+import { resetCart } from "../../actions/cartAction";
+import CartWindowProduct from "../Cart/CartWindowProduct";
+import logo from "../../images/logo.png";
 import "./Header.css";
-import "./cart/CartWindowProduct.css";
+import "../Cart/CartWindowProduct.css";
 
 class Header extends Component {
   constructor(props) {

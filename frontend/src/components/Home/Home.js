@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Header from "./Header";
-import ProductCard from "./ProductCard";
+import Header from "../Header";
+import ProductCard from "../ProductCard/ProductCard";
 import { connect } from "react-redux";
-import { fetchProducts } from "../actions/productsAction";
+import { fetchProducts } from "../../actions/productsAction";
 import "./Home.css";
 
 class Home extends Component {

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Header from "./Header";
-import { client, product } from "../queries";
-import { withRouter } from "../HOC";
+import Header from "../Header";
+import { client, product } from "../../utils/queries";
+import { withRouter } from "../../utils/HOC";
 import { connect } from "react-redux";
-import { addToCart } from "../actions/cartAction";
+import { addToCart } from "../../actions/cartAction";
 import "./Detailed.css";
 
 class Detailed extends Component {
