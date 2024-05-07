@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { increase, decrease, setQuantity } from "../../actions/cartAction";
 import arrow from "../../images/right-arrow.png";
 import "./CartWindowProduct.css";
+import Attribute from "../ProductCard/Attribute";
 
 class CartPageProduct extends Component {
   constructor(props) {
@@ -81,31 +82,7 @@ class CartPageProduct extends Component {
             </div>
             <div className="attributes">
               {prod.attributes.map((a) => (
-                <div key={a.id} className="attribute">
-                  <h3>{a.name.toUpperCase()}:</h3>
-                  <div className="items">
-                    {a.items.map((i) => (
-                      <div
-                        key={i.id}
-                        style={{
-                          background: a.type === "swatch" ? i.value : "",
-                          border: i.id === "White" ? "1px solid black" : "",
-                        }}
-                        className={
-                          a.type === "swatch"
-                            ? i.selected
-                              ? "item-swatch swatch-selected"
-                              : "item-swatch"
-                            : i.selected
-                            ? "item-text text-selected"
-                            : "item-text"
-                        }
-                      >
-                        {a.type === "swatch" ? "" : i.value}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <Attribute attribute={a} />
               ))}
             </div>
           </div>

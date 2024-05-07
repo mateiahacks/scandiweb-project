@@ -33,7 +33,8 @@ class CartWindowItem extends Component {
                       key={i.id}
                       style={{
                         background: a.type === "swatch" ? i.value : "",
-                        border: i.id === "White" ? "1px solid black" : "",
+                        border:
+                          i.displayValue === "White" ? "1px solid black" : "",
                       }}
                       className={
                         a.type === "swatch"

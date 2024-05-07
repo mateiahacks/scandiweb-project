@@ -5,6 +5,7 @@ import { withRouter } from "../../utils/HOC";
 import { connect } from "react-redux";
 import { addToCart } from "../../actions/cartAction";
 import "./Detailed.css";
+import Attribute from "../ProductCard/Attribute";
 
 class Detailed extends Component {
   constructor(props) {
@@ -124,7 +125,7 @@ class Detailed extends Component {
                 <div id="text">OUT OF STOCK</div>
               </div>
             )}
-            <img className="main-img" src={this.state.mainImg} alt="" />
+            <img className="main-img" src={this.state.mainImg} alt="main-img" />
           </div>
           <div className="info">
             <div className="info_header">
@@ -133,33 +134,10 @@ class Detailed extends Component {
             </div>
             <div className="attributes">
               {this.state.attributes?.map((a) => (
-                <div key={a.id} className="attribute">
-                  <h3>{a.name?.toUpperCase()} :</h3>
-                  <div className="items">
-                    {a.items.map((i) => (
-                      <div
-                        onClick={() => this.selectItem(a, i)}
-                        key={i.id}
-                        style={{
-                          backgroundColor: i.value,
-                          border:
-                            i.displayValue === "White" ? "1px solid black" : "",
-                        }}
-                        className={
-                          a.type === "swatch"
-                            ? i.selected
-                              ? "item-swatch swatch-selected"
-                              : "item-swatch"
-                            : i.selected
-                            ? "item-text text-selected"
-                            : "item-text"
-                        }
-                      >
-                        {a.type === "swatch" ? "" : i.value}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <Attribute
+                  attribute={a}
+                  selectItem={this.selectItem.bind(this)}
+                />
               ))}
             </div>
             <h3>PRICE:</h3>
