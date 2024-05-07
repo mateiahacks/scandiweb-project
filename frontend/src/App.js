@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import { connect } from "react-redux";
-import { fetchCurrencies } from "./actions/currencyAction";
-import { fetchCategories } from "./actions/categoryAction";
+import { fetchCurrencies } from "./state/actions/currencyAction";
+import { fetchCategories } from "./state/actions/categoryAction";
 import Detailed from "./components/DetailedProduct/Detailed";
 import Cart from "./components/Cart/Cart";
 

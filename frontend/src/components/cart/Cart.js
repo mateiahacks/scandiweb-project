@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { resetCart } from "../../actions/cartAction";
+import { resetCart } from "../../state/actions/cartAction";
 import Header from "../Header";
 import CartPageProduct from "./CartPageProduct";
 import "./CartWindowProduct.css";

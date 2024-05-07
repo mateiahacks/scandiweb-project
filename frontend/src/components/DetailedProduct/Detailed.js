@@ -3,9 +3,10 @@ import Header from "../Header";
 import { client, product } from "../../utils/queries";
 import { withRouter } from "../../utils/HOC";
 import { connect } from "react-redux";
-import { addToCart } from "../../actions/cartAction";
+import { addToCart } from "../../state/actions/cartAction";
 import "./Detailed.css";
 import Attribute from "../ProductCard/Attribute";
+import Slider from "./Slider";
 
 class Detailed extends Component {
   constructor(props) {
@@ -125,7 +126,8 @@ class Detailed extends Component {
                 <div id="text">OUT OF STOCK</div>
               </div>
             )}
-            <img className="main-img" src={this.state.mainImg} alt="main-img" />
+            {/* <img className="main-img" src={this.state.mainImg} alt="main-img" /> */}
+            <Slider product={prod} />
           </div>
           <div className="info">
             <div className="info_header">

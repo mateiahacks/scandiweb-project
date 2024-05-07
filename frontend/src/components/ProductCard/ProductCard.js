@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import carticon from "../../images/circle-icon.png";
 import { withRouter } from "../../utils/HOC";
 import { connect } from "react-redux";
-import { addToCart } from "../../actions/cartAction";
+import { addToCart } from "../../state/actions/cartAction";
 import { client, product } from "../../utils/queries";
 import "./ProductCard.css";
 import Attribute from "./Attribute";

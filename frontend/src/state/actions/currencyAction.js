@@ -1,4 +1,4 @@
-import { client, currencies } from "../utils/queries";
+import { client, currencies } from "../../utils/queries";
 
 export const fetchCurrencies = () => (dispatch) => {
   const query = currencies();

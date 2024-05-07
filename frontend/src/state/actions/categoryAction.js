@@ -1,4 +1,4 @@
-import { client, categories } from "../utils/queries";
+import { client, categories } from "../../utils/queries";
 
 export const setCategory = (cat) => (dispatch) => {
   dispatch({

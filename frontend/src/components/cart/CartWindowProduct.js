@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { increase, decrease, setQuantity } from "../../actions/cartAction";
+import {
+  increase,
+  decrease,
+  setQuantity,
+} from "../../state/actions/cartAction";
 import "./CartWindowProduct.css";
 
 class CartWindowItem extends Component {
