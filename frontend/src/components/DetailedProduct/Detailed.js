@@ -6,7 +6,8 @@ import { connect } from "react-redux";
 import { addToCart } from "../../state/actions/cartAction";
 import "./Detailed.css";
 import Attribute from "../ProductCard/Attribute";
-import Slider from "./Slider";
+import Slider from "../Slider/Slider";
+// import Slider from "./Slider";
 
 class Detailed extends Component {
   constructor(props) {
@@ -17,7 +18,12 @@ class Detailed extends Component {
       mainImg: "",
       attributes: [],
       selectedCounter: 0,
+      imageIndex: 0,
     };
+  }
+
+  setImageIndex(arg) {
+    this.setState(typeof arg === "function" ? arg : { imageIndex: arg });
   }
 
   async getProduct() {
@@ -105,18 +111,27 @@ class Detailed extends Component {
   render() {
     const prod = this.state.product;
 
+    if (!prod.gallery) {
+      return null;
+    }
+
+    const images = prod.gallery.map((url, i) => ({
+      url,
+      alt: "image" + String(i),
+    }));
+
     return (
       <div className="detailed">
         <Header />
         <div className="detailed_inner">
           <div className="bar-imgs">
-            {prod.gallery?.map((p) => (
+            {prod.gallery?.map((p, i) => (
               <img
                 key={p}
                 src={p}
                 alt="img"
                 className="bar-img"
-                onClick={() => this.setState({ mainImg: p })}
+                onClick={() => this.setImageIndex(i)}
               />
             ))}
           </div>
@@ -126,8 +141,11 @@ class Detailed extends Component {
                 <div id="text">OUT OF STOCK</div>
               </div>
             )}
-            {/* <img className="main-img" src={this.state.mainImg} alt="main-img" /> */}
-            <Slider product={prod} />
+            <Slider
+              images={images}
+              setImageIndex={this.setImageIndex.bind(this)}
+              imageIndex={this.state.imageIndex}
+            />
           </div>
           <div className="info">
             <div className="info_header">
@@ -135,8 +153,9 @@ class Detailed extends Component {
               <h1 id="name">{prod.name}</h1>
             </div>
             <div className="attributes">
-              {this.state.attributes?.map((a) => (
+              {this.state.attributes?.map((a, i) => (
                 <Attribute
+                  key={i}
                   attribute={a}
                   selectItem={this.selectItem.bind(this)}
                 />
@@ -171,6 +190,7 @@ class Detailed extends Component {
 const mapStateToProps = (state) => ({
   currency: state.currencyReducer.currency,
   currencies: state.currencyReducer.currencies,
+  cart: state.cartReducer.cart,
 });
 
 export default connect(mapStateToProps, { addToCart })(withRouter(Detailed));

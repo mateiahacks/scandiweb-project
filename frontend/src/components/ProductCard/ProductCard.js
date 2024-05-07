@@ -93,8 +93,9 @@ class ProductCard extends Component {
               }}
             >
               <div className="attributes">
-                {this.state.attributes?.map((a) => (
+                {this.state.attributes?.map((a, i) => (
                   <Attribute
+                    key={i}
                     attribute={a}
                     selectItem={this.selectItem.bind(this)}
                   />
