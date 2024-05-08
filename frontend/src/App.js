@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { fetchCurrencies } from "./state/actions/currencyAction";
 import { fetchCategories } from "./state/actions/categoryAction";
 import Detailed from "./components/DetailedProduct/Detailed";
-import Cart from "./components/Cart/Cart";
 
 class App extends Component {
   componentDidMount() {
@@ -19,7 +18,6 @@ class App extends Component {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<Detailed />} />
-          <Route path="/cart" element={<Cart />} />
         </Routes>
       </Router>
     );

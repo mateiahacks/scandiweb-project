@@ -90,22 +90,15 @@ class Detailed extends Component {
   }
 
   onAddToCart() {
-    const out_err_msg = document.getElementById("out-err");
-    const attr_err_msg = document.getElementById("attr-err");
+    if (!(this.state.product.inStock && this.allSelected())) {
+      return;
+    }
     const tempProd = {
       ...this.state.product,
       attributes: this.state.attributes,
       quantity: 1,
     };
-    if (this.state.product.inStock && this.allSelected()) {
-      this.props.addToCart(tempProd);
-      out_err_msg.style.display = "none";
-      attr_err_msg.style.display = "none";
-    } else {
-      !this.state.product.inStock
-        ? (out_err_msg.style.display = "block")
-        : (attr_err_msg.style.display = "block");
-    }
+    this.props.addToCart(tempProd);
   }
 
   render() {
@@ -170,7 +163,13 @@ class Detailed extends Component {
                     this.props.currencies.indexOf(this.props.currency)
                   ]?.amount?.toFixed(2)}
             </h2>
-            <div className="add_to_cart" onClick={() => this.onAddToCart()}>
+            <div
+              className={`add_to_cart ${
+                !(this.state.product.inStock && this.allSelected()) &&
+                "disabled"
+              }`}
+              onClick={() => this.onAddToCart()}
+            >
               ADD TO CART
             </div>
             <p className="error" id="out-err">

@@ -173,6 +173,8 @@
   cursor: pointer;
   font-weight: 500;
   font-size: 18px;
+  width: 100%;
+  text-align: center;
 }
 
 #checkout {

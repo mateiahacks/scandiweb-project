@@ -9,10 +9,10 @@ import {
   fetchCurrencies,
 } from "../../state/actions/currencyAction";
 import { resetCart } from "../../state/actions/cartAction";
-import CartWindowProduct from "../Cart/CartWindowProduct";
 import logo from "../../images/logo.png";
 import "./Header.css";
 import "../Cart/CartWindowProduct.css";
+import Cart from "../Cart/Cart";
 
 class Header extends Component {
   constructor(props) {
@@ -53,51 +53,19 @@ class Header extends Component {
   }
 
   onCheckout() {
-    const err_msg = document.getElementById("empty-cart-header");
-    if (this.props.cart.length > 0) {
-      this.setState({ showCart: false });
-      this.props.resetCart();
-      this.setState({ redirect: "/" });
-      err_msg.style.display = "none";
-    } else {
-      err_msg.style.display = "block";
+    if (this.props.cart.length === 0) {
+      return;
     }
+    this.setState({ showCart: false });
+    this.props.resetCart();
+    this.setState({ redirect: "/" });
   }
 
   render() {
     return (
       <div>
         <div className="header" id="header">
-          {this.state.showCart && (
-            <div className="cart-window">
-              <h3>My Bag, {this.props.totalQuantity} items</h3>
-              <div className="window-products">
-                {this.props.cart.map((p) => (
-                  <CartWindowProduct
-                    key={this.props.cart.indexOf(p)}
-                    product={p}
-                  />
-                ))}
-              </div>
-              <div id="window-total">
-                <h3>Total</h3>
-                <h3>
-                  {this.props.currency.symbol} {this.totalSum().toFixed(2)}
-                </h3>
-              </div>
-              <div className="window-buttons">
-                <Link to="/cart" className="text-link">
-                  <div id="cart-link">VIEW BAG</div>
-                </Link>
-                <div id="checkout" onClick={() => this.onCheckout()}>
-                  CHECKOUT
-                </div>
-              </div>
-              <p className="error" id="empty-cart-header">
-                *can't checkout with an empty cart
-              </p>
-            </div>
-          )}
+          {this.state.showCart && <Cart />}
           <div className="header__left">
             {this.props.categories?.map((c) => (
               <Link to="/" className="text-link" key={c.name}>

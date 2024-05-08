@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Navigate } from "react-router-dom";
 import { resetCart } from "../../state/actions/cartAction";
-import Header from "../Header";
-import CartPageProduct from "./CartPageProduct";
+import CartWindowProduct from "./CartWindowProduct";
 import "./CartWindowProduct.css";
 
 class Cart extends Component {
@@ -35,43 +33,28 @@ class Cart extends Component {
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Navigate to={this.state.redirect} />;
-    }
-    const { cart, totalQuantity, currency } = this.props;
     return (
-      <div className="d-flex">
-        <Header />
-        <div className="cart-products">
-          <h1>CART</h1>
-          {cart.map((product) => (
-            <CartPageProduct key={cart.indexOf(product)} prod={product} />
+      <div className="cart-window">
+        <h3>My Bag, {this.props.totalQuantity} items</h3>
+        <div className="window-products">
+          {this.props.cart.map((p) => (
+            <CartWindowProduct key={this.props.cart.indexOf(p)} product={p} />
           ))}
         </div>
-        <div className="cart-sum">
-          <p>
-            Tax {this.state.tax}%:
-            <span>
-              {" " + currency.symbol}
-              {((this.state.tax / 100) * this.totalSum()).toFixed(2)}
-            </span>
-          </p>
-          <p>
-            Quantity: <span>{totalQuantity}</span>
-          </p>
-          <p>
-            Total:{" "}
-            <span>
-              {currency.symbol}
-              {this.totalSum().toFixed(2)}
-            </span>
-          </p>
-          <div id="order" onClick={() => this.onCheckout()}>
-            ORDER
+        <div id="window-total">
+          <h3>Total</h3>
+          <h3>
+            {this.props.currency.symbol} {this.totalSum().toFixed(2)}
+          </h3>
+        </div>
+        <div className="window-buttons">
+          <div
+            id="checkout"
+            className={this.props.cart.length === 0 ? "disabled" : ""}
+            onClick={() => this.onCheckout()}
+          >
+            PLACE ORDER
           </div>
-          <p className="error" id="order-err">
-            *can't checkout with an empty cart
-          </p>
         </div>
       </div>
     );
