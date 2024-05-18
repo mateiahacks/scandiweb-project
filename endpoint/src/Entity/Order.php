@@ -37,4 +37,8 @@ class Order {
     public function get_order_items() {
         return $this->order_items;
     }
+
+    public function add_order_item(OrderItem $new) {
+        $this->order_items->add($new);
+    }
 }
