@@ -24,6 +24,13 @@ class AttributeItem extends EntityBase {
     #[Column(type:"string")]
     private $value;
 
+    #[Column(type: "integer", nullable: true)]
+    private $order_item_id;
+
+    #[ManyToOne(targetEntity: OrderItem::class, inversedBy: "attribute_items")]
+    #[JoinColumn(name: "order_item_id", referencedColumnName: "id")]
+    private $order_item;
+
     #[ManyToOne(targetEntity: AttributeSet::class, inversedBy:"items")]
     #[JoinColumn(name:"attribute_set_id", referencedColumnName:"id")]
     private AttributeSet $attribute_set;
@@ -33,4 +40,6 @@ class AttributeItem extends EntityBase {
     public function get_value(): string { return $this->value; }
     public function get_attribute_set_id(): int { return $this->attribute_set_id; }
     public function get_attribute_set(): AttributeSet { return $this->attribute_set; }
+    public function get_order_item(): OrderItem { return $this->order_item; }
+    public function get_order_item_id(): int { return $this->order_item_id; }
 }
