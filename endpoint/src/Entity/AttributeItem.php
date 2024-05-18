@@ -41,5 +41,6 @@ class AttributeItem extends EntityBase {
     public function get_attribute_set_id(): int { return $this->attribute_set_id; }
     public function get_attribute_set(): AttributeSet { return $this->attribute_set; }
     public function get_order_item(): OrderItem { return $this->order_item; }
+    public function set_order_item(OrderItem $order_item) { $this->order_item = $order_item; }
     public function get_order_item_id(): int { return $this->order_item_id; }
 }

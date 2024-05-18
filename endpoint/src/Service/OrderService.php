@@ -33,13 +33,19 @@ class OrderService {
             foreach ($attribute_ids as $id) {
                 $attribute = $this->attribute_repository->findOneBy(["id" => $id]);
                 $order_item->add_attribute_item($attribute);
+                $attribute->set_order_item($order_item);
+
+                // save updated attribute item
+                $this->entity_manager->persist($attribute);
             }
             
             $order->add_order_item($order_item);
 
+            // save new order item
             $this->entity_manager->persist($order_item);
         }
         
+        // save new order
         $this->entity_manager->persist($order);
         $this->entity_manager->flush();
     }
