@@ -21,6 +21,8 @@ class OrderService {
 
     public function create_order($items) {
         $order = new Order();
+        $total_cost = 0;
+
         foreach ($items as $item) {
             $product_id = $item["product_id"];
             $quantity = $item["quantity"];
@@ -39,11 +41,15 @@ class OrderService {
                 $this->entity_manager->merge($attribute);
             }
             
+            $total_cost += $product->get_price_in_euro();
+        
             $order->add_order_item($order_item);
 
             // save new order item
             $this->entity_manager->persist($order_item);
         }
+
+        $order->set_total_cost_in_euro($total_cost);
         
         // save new order
         $this->entity_manager->persist($order);
