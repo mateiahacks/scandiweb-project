@@ -19,15 +19,31 @@ class Order {
     #[Column(type: 'datetime')]
     private $created_at;
 
+    #[Column(type: "float")]
+    private $total_cost_in_euro;
+
     #[OneToMany(targetEntity: OrderItem::class, mappedBy: "order")]
     private $order_items;
 
     public function __construct() {
         $this->order_items = new ArrayCollection();
+        $this->created_at = new \DateTime();
     }
 
     public function get_id(): int {
         return $this->id;
+    }
+
+    public function get_total_cost_in_euro(): float {
+        return $this->total_cost_in_euro;
+    }
+
+    public function set_total_cost_in_euro(float $cost) {
+        if ($cost < 0) {
+            throw new \InvalidArgumentException("Cost should be greater or equal to 0");
+        }
+        $this->total_cost_in_euro = $cost;
+        return $this;
     }
 
     public function get_created_at() {

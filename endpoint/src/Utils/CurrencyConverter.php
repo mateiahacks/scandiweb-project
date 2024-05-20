@@ -25,6 +25,16 @@ class CurrencyConverter {
     }
 
     public static function convert_from_euro($amount, $currency) {
+        if (!isset(self::$rates[$currency])) {
+            throw new \InvalidArgumentException("Currency not supported");
+        }
         return self::$rates[$currency] * $amount;
+    }
+
+    public static function convert_to_euro($amount, $currency) {
+        if (!isset(self::$rates[$currency])) {
+            throw new \InvalidArgumentException("Currency not supported");
+        }
+        return $amount / self::$rates[$currency];
     }
 }

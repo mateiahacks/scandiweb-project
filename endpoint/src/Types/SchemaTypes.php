@@ -1,6 +1,7 @@
 <?php
 namespace App\Types;
 
+use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\ObjectType;
@@ -16,6 +17,8 @@ class SchemaTypes {
     public static $category;
     public static $categories;
     public static $categoryInput;
+    public static $orderInput;
+    public static $orderInputItem;
 
     public static function init() {
         self::$currency = new ObjectType([
@@ -79,12 +82,22 @@ class SchemaTypes {
 
         self::$categories = new ListOfType(self::$category);
 
-        self::$categoryInput = new ObjectType([
+        self::$categoryInput = new InputObjectType([
             'name' => 'CategoryInput',
             'fields'=> [
                 'title' => Type::string(),
             ],
         ]);
+
+        self::$orderInputItem = new InputObjectType([
+            'name' => 'OrderInputItem',
+            'fields' => [
+                'product_id' => Type::int(),
+                'quantity' => Type::int()
+            ]
+        ]);
+
+        self::$orderInput = new ListOfType(self::$orderInputItem);
     }
 }
 

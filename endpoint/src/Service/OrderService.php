@@ -36,7 +36,7 @@ class OrderService {
                 $attribute->set_order_item($order_item);
 
                 // save updated attribute item
-                $this->entity_manager->persist($attribute);
+                $this->entity_manager->merge($attribute);
             }
             
             $order->add_order_item($order_item);

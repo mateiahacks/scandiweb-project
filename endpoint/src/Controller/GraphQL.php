@@ -26,6 +26,7 @@ class GraphQL {
         $category_controller = new CategoryController($entity_manager);
         $product_controller = new ProductController($entity_manager);
         $currency_controller = new CurrencyController();
+        $order_controller = new OrderController($entity_manager);
 
         try {
             $queryType = new ObjectType([
@@ -61,14 +62,13 @@ class GraphQL {
             $mutationType = new ObjectType([
                 'name' => 'Mutation',
                 'fields' => [
-                    'sum' => [
+                    'order' => [
                         'type' => Type::int(),
                         'args' => [
-                            'x' => ['type' => Type::int()],
-                            'y' => ['type' => Type::int()],
+                            'input' => SchemaTypes::$orderInput
                         ],
-                        'resolve' => static fn ($calc, array $args): int => $args['x'] + $args['y'],
-                    ],
+                        'resolve' => static fn($root, array $args) => $order_controller->create_order($args["input"])
+                    ]
                 ],
             ]);
         
