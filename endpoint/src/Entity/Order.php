@@ -11,12 +11,12 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity]
-#[Table(name:"order")]
+#[Table(name:"orders")]
 class Order {
     #[Id, Column(type:"integer"), GeneratedValue]
     private $id;
 
-    #[Column(type: 'datetime')]
+    #[Column(type: 'datetime', options: ["default" => "CURRENT_TIMESTAMP"], nullable: true), GeneratedValue]
     private $created_at;
 
     #[Column(type: "float")]

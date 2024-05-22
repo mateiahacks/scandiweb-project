@@ -7,6 +7,8 @@ use App\Entity\Order;
 use App\Entity\OrderItem;
 use App\Entity\Product;
 use Doctrine\ORM\EntityManager;
+use Exception;
+use Throwable;
 
 class OrderService {
     private $product_repository;
@@ -20,6 +22,7 @@ class OrderService {
     }
 
     public function create_order($items) {
+            
         $order = new Order();
         $total_cost = 0;
 
@@ -30,30 +33,41 @@ class OrderService {
 
             $order_item = new OrderItem();
             $product = $this->product_repository->findOneBy(["id" => $product_id]);
-            $order_item->set_product($product)->set_quantity($quantity)->set_order($order);
 
+            
+            if (!$product) {
+                return 2;
+            }
+            
+            $order_item->set_product($product)->set_quantity($quantity)->set_order($order);
+            
             foreach ($attribute_ids as $id) {
                 $attribute = $this->attribute_repository->findOneBy(["id" => $id]);
+                
+                if (!$attribute) {
+                    return 3;
+                }
+                
                 $order_item->add_attribute_item($attribute);
-                $attribute->set_order_item($order_item);
-
+                $attribute->add_order_item($order_item);
+                
                 // save updated attribute item
-                $this->entity_manager->merge($attribute);
+                $this->entity_manager->persist($attribute);
             }
             
             $total_cost += $product->get_price_in_euro();
-        
+            
             $order->add_order_item($order_item);
-
+            
             // save new order item
             $this->entity_manager->persist($order_item);
         }
-
+        
         $order->set_total_cost_in_euro($total_cost);
         
         // save new order
-        $this->entity_manager->persist($order);
         $this->entity_manager->flush();
+        return 1;
     }
 
 }

@@ -93,7 +93,8 @@ class SchemaTypes {
             'name' => 'OrderInputItem',
             'fields' => [
                 'product_id' => Type::int(),
-                'quantity' => Type::int()
+                'quantity' => Type::int(),
+                'attribute_ids' => Type::listOf(Type::int())
             ]
         ]);
 

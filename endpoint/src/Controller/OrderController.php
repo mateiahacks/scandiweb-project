@@ -12,9 +12,6 @@ class OrderController {
     }
 
     public function create_order($items) {
-
-        var_dump($items);
-
-        return 1;
+        return $this->order_service->create_order($items);
     }
 }
