@@ -63,6 +63,8 @@ class Header extends Component {
   }
 
   render() {
+    const currentCategory = this.props.params.category_name;
+
     return (
       <div>
         <div className="header" id="header">
@@ -72,12 +74,17 @@ class Header extends Component {
               <Link
                 to={`/category/${c.name}`}
                 className="text-link"
+                data-testid={
+                  currentCategory === c.name
+                    ? "active-category-link"
+                    : "category-link"
+                }
                 key={c.name}
               >
                 <div
                   onClick={() => this.selectCategory(c)}
                   className={
-                    c.name === this.props.params.category_name
+                    c.name === currentCategory
                       ? "category category-selected"
                       : "category"
                   }
