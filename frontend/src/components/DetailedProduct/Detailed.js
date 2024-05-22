@@ -15,6 +15,7 @@ class Detailed extends Component {
 
     this.state = {
       product: {},
+      parsedDescription: "",
       mainImg: "",
       attributes: [],
       selectedCounter: 0,
@@ -47,11 +48,7 @@ class Detailed extends Component {
 
     // then selecting actual description element inside body
     const el = doc.querySelector("body > *");
-    const parent = document.querySelector(".info");
-    el.id = "description";
-
-    //adding current element to product info
-    parent.appendChild(el);
+    this.setState({ parsedDescription: el.innerText });
   }
 
   componentDidMount() {
@@ -103,6 +100,7 @@ class Detailed extends Component {
 
   render() {
     const prod = this.state.product;
+    const parsedDescription = this.state.parsedDescription;
 
     if (!prod.gallery) {
       return null;
@@ -178,7 +176,7 @@ class Detailed extends Component {
             <p className="error" id="attr-err">
               *select all attributes
             </p>
-            <div id="description" />
+            <div id="description"> {parsedDescription} </div>
           </div>
         </div>
       </div>
