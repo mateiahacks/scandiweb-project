@@ -6,6 +6,7 @@ import { addToCart } from "../../state/actions/cartAction";
 import { client, product } from "../../utils/queries";
 import "./ProductCard.css";
 import Attribute from "./Attribute";
+import { toKebabCase } from "../../utils/helpers";
 
 class ProductCard extends Component {
   constructor(props) {
@@ -79,6 +80,8 @@ class ProductCard extends Component {
   }
 
   render() {
+    const productNameInKebabCase = toKebabCase(this.state.product.name);
+
     return (
       <>
         {this.state.showAttributeSelect && (
@@ -109,6 +112,7 @@ class ProductCard extends Component {
         )}
         <div
           className="card"
+          data-testid={`product-${productNameInKebabCase}`}
           onClick={() => {
             this.props.navigate("product/" + this.props.prod.id);
           }}
