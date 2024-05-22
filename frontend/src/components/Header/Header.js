@@ -13,6 +13,7 @@ import logo from "../../images/logo.png";
 import "./Header.css";
 import "../Cart/CartWindowProduct.css";
 import Cart from "../Cart/Cart";
+import { withRouter } from "../../utils/HOC";
 
 class Header extends Component {
   constructor(props) {
@@ -68,11 +69,15 @@ class Header extends Component {
           {this.state.showCart && <Cart />}
           <div className="header__left">
             {this.props.categories?.map((c) => (
-              <Link to="/" className="text-link" key={c.name}>
+              <Link
+                to={`/category/${c.name}`}
+                className="text-link"
+                key={c.name}
+              >
                 <div
                   onClick={() => this.selectCategory(c)}
                   className={
-                    c.name === this.props.currentCategory
+                    c.name === this.props.params.category_name
                       ? "category category-selected"
                       : "category"
                   }
@@ -141,4 +146,4 @@ const mapDispatchToProps = {
   resetCart,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

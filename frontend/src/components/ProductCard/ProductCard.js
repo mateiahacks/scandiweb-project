@@ -114,7 +114,7 @@ class ProductCard extends Component {
           className="card"
           data-testid={`product-${productNameInKebabCase}`}
           onClick={() => {
-            this.props.navigate("product/" + this.props.prod.id);
+            this.props.navigate("/product/" + this.props.prod.id);
           }}
         >
           {!this.props.instock && (

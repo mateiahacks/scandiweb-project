@@ -4,14 +4,15 @@ import ProductCard from "../ProductCard/ProductCard";
 import { connect } from "react-redux";
 import { fetchProducts } from "../../state/actions/productsAction";
 import "./Home.css";
+import { withRouter } from "../../utils/HOC";
 
 class Home extends Component {
   componentDidMount() {
-    this.props.fetchProducts(this.props.currentCategory);
+    this.props.fetchProducts(this.props.params.category_name);
   }
 
   componentDidUpdate() {
-    this.props.fetchProducts(this.props.currentCategory);
+    this.props.fetchProducts(this.props.params.category_name);
   }
 
   capitalizeFirstLetter = ([first, ...rest], locale = navigator.language) =>
@@ -23,8 +24,8 @@ class Home extends Component {
         <Header />
         <div className="home__inner" id="home">
           <h1>
-            {this.props.currentCategory &&
-              this.capitalizeFirstLetter(this.props.currentCategory)}
+            {this.props.params.category_name &&
+              this.capitalizeFirstLetter(this.props.params.category_name)}
           </h1>
           <div className="products">
             {this.props.products &&
@@ -58,4 +59,4 @@ const mapStateToProps = (state) => ({
   currency: state.currencyReducer.currency,
 });
 
-export default connect(mapStateToProps, { fetchProducts })(Home);
+export default connect(mapStateToProps, { fetchProducts })(withRouter(Home));
