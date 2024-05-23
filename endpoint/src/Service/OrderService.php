@@ -64,8 +64,11 @@ class OrderService {
         }
         
         $order->set_total_cost_in_euro($total_cost);
-        
+
         // save new order
+        $this->entity_manager->persist($order);
+
+        // commit every presist
         $this->entity_manager->flush();
         return 1;
     }
