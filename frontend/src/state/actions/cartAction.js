@@ -43,7 +43,6 @@ export const resetCart = () => (dispatch) => {
 // Create order
 export const createOrder = (items) => {
   return (dispatch) => {
-    console.log(JSON.stringify(items));
     const mutation = createOrderMutation(items);
     client
       .mutate({
