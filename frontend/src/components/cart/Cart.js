@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { resetCart } from "../../state/actions/cartAction";
+import { createOrder } from "../../state/actions/cartAction";
 import CartWindowProduct from "./CartWindowProduct";
 import "./CartWindowProduct.css";
 
@@ -22,14 +22,20 @@ class Cart extends Component {
   }
 
   onCheckout() {
-    const err_msg = document.getElementById("order-err");
-    if (this.props.cart.length > 0) {
-      this.props.resetCart();
-      this.setState({ redirect: "/" });
-      err_msg.style.display = "none";
-    } else {
-      err_msg.style.display = "block";
+    if (this.props.cart.length <= 0) {
+      return;
     }
+    const items = this.props.cart.map((item) => {
+      return {
+        product_id: item.id,
+        quantity: item.quantity,
+        attribute_ids: item.attributes.map(
+          (a) => a.items.filter((e) => e.selected === true)[0].id
+        ),
+      };
+    });
+
+    this.props.createOrder(items);
   }
 
   render() {
@@ -68,4 +74,4 @@ const mapStateToProps = (state) => ({
   currencies: state.currencyReducer.currencies,
 });
 
-export default connect(mapStateToProps, { resetCart })(Cart);
+export default connect(mapStateToProps, { createOrder })(Cart);

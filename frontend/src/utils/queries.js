@@ -5,6 +5,14 @@ export const client = new ApolloClient({
   uri: "http://localhost:8080/graphql",
 });
 
+export const createOrderMutation = () => {
+  return gql`
+    mutation CreateOrder($input: [OrderInputItem!]!) {
+      order(input: $input)
+    }
+  `;
+};
+
 export const productsByCategory = (category) => {
   return gql`
       {

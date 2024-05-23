@@ -1,3 +1,5 @@
+import { client, createOrderMutation } from "../../utils/queries";
+
 // decreasing specific product quantity
 export const decrease = (prod) => (dispatch) => {
   dispatch({
@@ -36,4 +38,19 @@ export const resetCart = () => (dispatch) => {
   dispatch({
     type: "RESET_CART",
   });
+};
+
+// Create order
+export const createOrder = (items) => {
+  return (dispatch) => {
+    console.log(JSON.stringify(items));
+    const mutation = createOrderMutation(items);
+    client
+      .mutate({
+        mutation: mutation,
+        variables: { input: items },
+      })
+      .then((res) => dispatch({ type: "RESET_CART" }))
+      .catch((err) => console.log(err));
+  };
 };
