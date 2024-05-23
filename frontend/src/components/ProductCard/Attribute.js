@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { toKebabCase } from "../../utils/helpers.js";
 
 export default class Attribute extends Component {
   select(a, i) {
@@ -12,7 +13,11 @@ export default class Attribute extends Component {
     const a = this.props.attribute;
 
     return (
-      <div key={a.id} className="attribute">
+      <div
+        key={a.id}
+        className="attribute"
+        data-testid={`product-attribute-${toKebabCase(a.name)}`}
+      >
         <h3>{a.name?.toUpperCase()} :</h3>
         <div className="items">
           {a.items.map((i) => (

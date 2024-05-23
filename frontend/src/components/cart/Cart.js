@@ -43,7 +43,7 @@ class Cart extends Component {
         </div>
         <div id="window-total">
           <h3>Total</h3>
-          <h3>
+          <h3 data-testid="cart-total">
             {this.props.currency.symbol} {this.totalSum().toFixed(2)}
           </h3>
         </div>

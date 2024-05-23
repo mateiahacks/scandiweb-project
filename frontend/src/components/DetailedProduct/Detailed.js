@@ -115,28 +115,30 @@ class Detailed extends Component {
       <div className="detailed">
         <Header />
         <div className="detailed_inner">
-          <div className="bar-imgs">
-            {prod.gallery?.map((p, i) => (
-              <img
-                key={p}
-                src={p}
-                alt="img"
-                className="bar-img"
-                onClick={() => this.setImageIndex(i)}
+          <div className="gallery" data-testid="product-gallery">
+            <div className="bar-imgs">
+              {prod.gallery?.map((p, i) => (
+                <img
+                  key={p}
+                  src={p}
+                  alt="img"
+                  className="bar-img"
+                  onClick={() => this.setImageIndex(i)}
+                />
+              ))}
+            </div>
+            <div className="main-img-container">
+              {!prod.inStock && (
+                <div id="overlay">
+                  <div id="text">OUT OF STOCK</div>
+                </div>
+              )}
+              <Slider
+                images={images}
+                setImageIndex={this.setImageIndex.bind(this)}
+                imageIndex={this.state.imageIndex}
               />
-            ))}
-          </div>
-          <div className="main-img-container">
-            {!prod.inStock && (
-              <div id="overlay">
-                <div id="text">OUT OF STOCK</div>
-              </div>
-            )}
-            <Slider
-              images={images}
-              setImageIndex={this.setImageIndex.bind(this)}
-              imageIndex={this.state.imageIndex}
-            />
+            </div>
           </div>
           <div className="info">
             <div className="info_header">
@@ -162,6 +164,7 @@ class Detailed extends Component {
                   ]?.amount?.toFixed(2)}
             </h2>
             <div
+              data-testid="add-to-cart"
               className={`add_to_cart ${
                 !(this.state.product.inStock && this.allSelected()) &&
                 "disabled"
@@ -170,13 +173,10 @@ class Detailed extends Component {
             >
               ADD TO CART
             </div>
-            <p className="error" id="out-err">
-              *out of stock
-            </p>
-            <p className="error" id="attr-err">
-              *select all attributes
-            </p>
-            <div id="description"> {parsedDescription} </div>
+            <div id="description" data-testid="product-description">
+              {" "}
+              {parsedDescription}{" "}
+            </div>
           </div>
         </div>
       </div>

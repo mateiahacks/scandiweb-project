@@ -6,6 +6,7 @@ import {
   setQuantity,
 } from "../../state/actions/cartAction";
 import "./CartWindowProduct.css";
+import { toKebabCase } from "../../utils/helpers.js";
 
 class CartWindowItem extends Component {
   constructor(props) {
@@ -29,11 +30,20 @@ class CartWindowItem extends Component {
           </h3>
           <div className="window-attributes">
             {product.attributes.map((a) => (
-              <div key={a.id} className="window-attribute">
+              <div
+                key={a.id}
+                className="window-attribute"
+                data-testid={`cart-item-attribute-${toKebabCase(a.name)}`}
+              >
                 <p>{a.name}:</p>
                 <div className="window-items">
                   {a.items.map((i) => (
                     <div
+                      data-testid={`cart-item-attribute-${toKebabCase(
+                        a.name
+                      )}-${toKebabCase(i.value)}${
+                        i.selected ? "-selected" : ""
+                      }`}
                       key={i.id}
                       style={{
                         background: a.type === "swatch" ? i.value : "",
@@ -61,6 +71,7 @@ class CartWindowItem extends Component {
         <div className="window-gallery">
           <div className="quantity">
             <div
+              data-testid="cart-item-amount-increase"
               className="pm"
               onClick={() => {
                 this.props.increase(product);
@@ -71,8 +82,11 @@ class CartWindowItem extends Component {
             >
               +
             </div>
-            <div id="quantity">{this.props.product.quantity}</div>
+            <div id="quantity" data-testid="cart-item-amount">
+              {this.props.product.quantity}
+            </div>
             <div
+              data-testid="cart-item-amount-decrease"
               className="pm"
               onClick={() => {
                 this.props.decrease(product);
