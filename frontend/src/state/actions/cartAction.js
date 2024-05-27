@@ -44,6 +44,10 @@ export const resetCart = () => (dispatch) => {
 export const createOrder = (items) => {
   return (dispatch) => {
     const mutation = createOrderMutation(items);
+    dispatch({
+      type: "SET_CREATING_ORDER",
+      payload: true,
+    });
     client
       .mutate({
         mutation: mutation,

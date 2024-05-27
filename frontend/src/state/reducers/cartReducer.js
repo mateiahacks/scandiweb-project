@@ -29,6 +29,7 @@ const initialState = localStorage.getItem("cart")
       cart: [],
       totalQuantity: 0,
       totalCost: 0,
+      isLoading: false,
     };
 
 let result = null;
@@ -140,6 +141,12 @@ export default function cartReducer(state = initialState, action) {
         cart: [],
         totalQuantity: 0,
         totalCost: 0,
+        isLoading: false,
+      };
+    case "SET_CREATING_ORDER":
+      return {
+        ...state,
+        isLoading: action.payload,
       };
     default:
       return state;

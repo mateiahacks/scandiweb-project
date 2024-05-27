@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createOrder } from "../../state/actions/cartAction";
 import CartWindowProduct from "./CartWindowProduct";
+import Spinner from "../Spinner/Spinner";
 import "./CartWindowProduct.css";
 
 class Cart extends Component {
@@ -59,7 +60,11 @@ class Cart extends Component {
             className={this.props.cart.length === 0 ? "disabled" : ""}
             onClick={() => this.onCheckout()}
           >
-            PLACE ORDER
+            {this.props.isCreatingOrder ? (
+              <Spinner width={20} />
+            ) : (
+              "PLACE ORDER"
+            )}
           </div>
         </div>
       </div>
@@ -69,6 +74,7 @@ class Cart extends Component {
 
 const mapStateToProps = (state) => ({
   cart: state.cartReducer.cart,
+  isCreatingOrder: state.cartReducer.isLoading,
   totalQuantity: state.cartReducer.totalQuantity,
   currency: state.currencyReducer.currency,
   currencies: state.currencyReducer.currencies,

@@ -8,6 +8,6 @@ export default class Spinner extends Component {
       height: this.props.width,
     };
 
-    return <div className="spinner" style={style}></div>;
+    return <span className="spinner" style={style}></span>;
   }
 }
