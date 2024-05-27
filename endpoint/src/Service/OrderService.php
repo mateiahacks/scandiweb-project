@@ -36,7 +36,7 @@ class OrderService {
 
             
             if (!$product) {
-                return 2;
+                return "Product with this id doesn't exist";
             }
             
             $order_item->set_product($product)->set_quantity($quantity)->set_order($order);
@@ -45,7 +45,7 @@ class OrderService {
                 $attribute = $this->attribute_repository->findOneBy(["id" => $id]);
                 
                 if (!$attribute) {
-                    return 3;
+                    return "attribute with this id doesn't exist";
                 }
                 
                 $order_item->add_attribute_item($attribute);
@@ -70,7 +70,7 @@ class OrderService {
 
         // commit every presist
         $this->entity_manager->flush();
-        return 1;
+        return "Order created successfully";
     }
 
 }

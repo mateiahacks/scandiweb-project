@@ -63,7 +63,7 @@ class GraphQL {
                 'name' => 'Mutation',
                 'fields' => [
                     'order' => [
-                        'type' => Type::int(),
+                        'type' => Type::string(),
                         'args' => [
                             'input' => SchemaTypes::$orderInput
                         ],
