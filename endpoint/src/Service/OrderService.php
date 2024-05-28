@@ -40,6 +40,14 @@ class OrderService {
             }
             
             $order_item->set_product($product)->set_quantity($quantity)->set_order($order);
+
+            if ($product->get_quatity() - $quantity < 0) {
+                return "Not enough amount in stock for product with id ".$product->get_id();
+            }
+
+            // If enough amount in stock, set new quantity of product and save it
+            $product->set_quantity($product->get_quatity() - $quantity);
+            $this->entity_manager->persist($product);
             
             foreach ($attribute_ids as $id) {
                 $attribute = $this->attribute_repository->findOneBy(["id" => $id]);
