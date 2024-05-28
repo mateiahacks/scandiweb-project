@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
@@ -30,7 +31,7 @@ abstract class AttributeSet extends EntityBase {
     #[Column(type:"string")]
     private $name;
 
-    #[OneToMany(targetEntity: AttributeItem::class, mappedBy:"attribute_set")]
+    #[ManyToMany(targetEntity: AttributeItem::class, mappedBy:"attribute_sets")]
     private $items;
 
     #[ManyToOne(targetEntity: Product::class, inversedBy:"attributes")]

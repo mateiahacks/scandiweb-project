@@ -48,7 +48,9 @@ class Detailed extends Component {
 
     // then selecting actual description element inside body
     const el = doc.querySelector("body > *");
-    this.setState({ parsedDescription: el.innerText });
+    this.setState({
+      parsedDescription: el ? el.innerText : res.data.product.description,
+    });
   }
 
   componentDidMount() {

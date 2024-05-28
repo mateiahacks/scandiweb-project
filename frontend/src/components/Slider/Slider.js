@@ -49,20 +49,24 @@ class Slider extends Component {
             />
           ))}
         </div>
-        <button
-          onClick={this.showPrevImage.bind(this)}
-          className="img-slider-btn-left"
-          aria-label="View Previous Image"
-        >
-          <img src={arrow} alt="left-arrow" className="arrow-left" />
-        </button>
-        <button
-          onClick={this.showNextImage.bind(this)}
-          className="img-slider-btn-right"
-          aria-label="View Next Image"
-        >
-          <img src={arrow} alt="right-arrow" />
-        </button>
+        {images.length > 1 && (
+          <button
+            onClick={this.showPrevImage.bind(this)}
+            className="img-slider-btn-left"
+            aria-label="View Previous Image"
+          >
+            <img src={arrow} alt="left-arrow" className="arrow-left" />
+          </button>
+        )}
+        {images.length > 1 && (
+          <button
+            onClick={this.showNextImage.bind(this)}
+            className="img-slider-btn-right"
+            aria-label="View Next Image"
+          >
+            <img src={arrow} alt="right-arrow" />
+          </button>
+        )}
         <div id="after-image-slider-controls" />
       </section>
     );
