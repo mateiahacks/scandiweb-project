@@ -47,9 +47,11 @@ class Detailed extends Component {
     );
 
     // then selecting actual description element inside body
-    const el = doc.querySelector("body > *");
+    const elements = [...doc.querySelectorAll("body > *")];
+    const result = elements.map((element) => element.innerText).join(" ");
     this.setState({
-      parsedDescription: el ? el.innerText : res.data.product.description,
+      parsedDescription:
+        elements.length !== 0 ? result : res.data.product.description,
     });
   }
 
